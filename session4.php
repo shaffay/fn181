@@ -1,3 +1,10 @@
+<?php
+
+include("config.php");
+
+// echo $test;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +20,12 @@
     <link rel="stylesheet" href="css/demo.css" />
 	
 </head>
-<body>
+<body >
 		
 
 
-<section>
-    <div class="rt-container">
+<section style="margin-top:25px">
+    <div class="rt-container ">
           <div class="col-rt-12">
               <div class="Scriptcontent">
               
@@ -139,19 +146,29 @@ if(isset($_POST['btn'])){
     $suggestions = $_POST['commentText'] ;
 
 
+    $insert = $con->query("INSERT INTO `feedaback`(`experince`, `curtesy`, `poorbest`, `comments`) VALUES ('$experience','$friendliness','$poorbest','$suggestions')");
+
+
     // echo $experience."<br>".$friendliness."<br>".$poorbest."<br>".$suggestions;
 
-    if($experience >= 4 && $friendliness >= 4 && $poorbest >=6 ){
-        ?>
-        <script>alert("Thanks For Your Kind Feedback.")</script>
-    
-    <?php
+    if($insert){
+
+      if($experience >= 4 && $friendliness >= 4 && $poorbest >=6 ){
+          ?>
+          <script>alert("Thanks For Your Kind Feedback.")</script>
+      
+      <?php
+      }else{
+          ?>
+          <script>alert("Sorry , We will better next time.")</script>
+      
+      <?php
+      }
     }else{
-        ?>
-        <script>alert("Sorry , We will better next time.")</script>
-    
-    <?php
+      echo"Error";
     }
+
+
 }
 
 

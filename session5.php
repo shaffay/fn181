@@ -36,6 +36,7 @@ $fetch = $con->query("SELECT * FROM `feedaback`");
                 <th>Courtesy</th>
                 <th>Food</th>
                 <th>Comments</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +48,9 @@ $fetch = $con->query("SELECT * FROM `feedaback`");
                 <td><?php echo $data['curtesy'] ?></td>
                 <td><?php echo $data['poorbest'] ?></td>
                 <td><?php echo $data['comments'] ?></td>
+                <td>
+                  <a href="delete.php?id=<?php echo $data['id'] ?>" class="btn btn-danger">Delete</a>
+                </td>
           
             </tr>
         <?php } ?>

@@ -3,6 +3,39 @@
 include("config.php");
 
 ?>
+<?php
+$fetch_record = $con->query("SELECT * FROM `record`");
+
+if(isset($_POST['btn'])){
+
+$name=$_POST['name'];
+$id=$_POST['id'];
+
+$Math=$_POST['Math'];
+$Islamiat=$_POST['Islamiat'];
+$Physics=$_POST['Physics'];
+$Urdu=$_POST['Urdu'];
+$English=$_POST['English'];
+
+$sum = $Math+$Islamiat+$Physics+$Urdu+$English;
+
+$calculate = $sum / 500 * 100;
+
+$insert = $con->query("INSERT INTO `record`(`name`, `stdid`, `Math`, `Islamiat`, `Physics`, `Urdu`, `English`, `ObtainedMarks`, `Percentage`) VALUES ('$name','$id','$Math','$Islamiat','$Physics','$Urdu','$English','$sum','$calculate')");
+
+
+
+?>
+
+<script>alert(" <?php echo $name." your percentage is  ".$calculate ?>")</script>
+<?php
+$fetch_record = $con->query("SELECT * FROM `record`");
+
+}
+
+
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -119,7 +152,7 @@ include("config.php");
 
     <?php  
     
-    $fetch_record = $con->query("SELECT * FROM `record`");
+    
     
     foreach($fetch_record as $row) {?>
 
@@ -162,35 +195,3 @@ include("config.php");
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
-<?php
-
-
-if(isset($_POST['btn'])){
-
-$name=$_POST['name'];
-$id=$_POST['id'];
-
-$Math=$_POST['Math'];
-$Islamiat=$_POST['Islamiat'];
-$Physics=$_POST['Physics'];
-$Urdu=$_POST['Urdu'];
-$English=$_POST['English'];
-
-$sum = $Math+$Islamiat+$Physics+$Urdu+$English;
-
-$calculate = $sum / 500 * 100;
-
-$insert = $con->query("INSERT INTO `record`(`name`, `stdid`, `Math`, `Islamiat`, `Physics`, `Urdu`, `English`, `ObtainedMarks`, `Percentage`) VALUES ('$name','$id','$Math','$Islamiat','$Physics','$Urdu','$English','$sum','$calculate')");
-
-
-
-?>
-
-<script>alert(" <?php echo $name." your percentage is  ".$calculate ?>")</script>
-<?php
-
-}
-
-
-
-?>

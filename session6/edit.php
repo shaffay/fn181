@@ -12,7 +12,7 @@ if(isset($_GET['id'])){
     $std = mysqli_fetch_array($fetch);
 
 
-    echo $std['name'];
+    // echo $std['name'];
 
 
 
@@ -36,57 +36,58 @@ if(isset($_GET['id'])){
   <body>
       <div class="container">
           
-  <form action="index.php" method="POST" >
+  <form action="edit.php" method="POST" >
 
+  <input type="hidden" value="<?= $std['id'] ?>" name="id">
 
 <div class="row">
 
 <div class="col col-md-6">
 <div class="form-group">
         <label for="">Student Name :</label>
-        <input type="text" name="name" class="form-control" >
+        <input type="text" value=" <?= $std['name'] ?>" name="name" class="form-control" >
         
     </div>
 </div>
 <div class="col col-md-6">
 <div class="form-group">
         <label for="">Student ID :</label>
-        <input type="text" name="id" class="form-control" >
+        <input type="text" value="<?= $std['stdid'] ?>" name="stdid" class="form-control" >
         
     </div>
 </div>
 <div class="col col-md-2">
 <div class="form-group">
         <label for="">Math<small>(Marks Obtained)</small>:</label>
-        <input type="number" name="Math" class="form-control" >
+        <input type="number" value="<?= $std['Math'] ?>" name="Math" class="form-control" >
         
     </div>
 </div>
 <div class="col col-md-2">
 <div class="form-group">
         <label for="">Islamiat<small>(Marks Obtained)</small>:</label>
-        <input type="number" name="Islamiat" class="form-control" >
+        <input type="number" value="<?= $std['Islamiat'] ?>" name="Islamiat" class="form-control" >
         
     </div>
 </div>
 <div class="col col-md-2">
 <div class="form-group">
         <label for="">Physics<small>(Marks Obtained)</small>:</label>
-        <input type="number" name="Physics" class="form-control" >
+        <input type="number" value="<?= $std['Physics'] ?>" name="Physics" class="form-control" >
         
     </div>
 </div>
 <div class="col col-md-2">
 <div class="form-group">
         <label for="">Urdu<small>(Marks Obtained)</small>:</label>
-        <input type="number" name="Urdu" class="form-control" >
+        <input type="number" value="<?= $std['Urdu'] ?>" name="Urdu" class="form-control" >
         
     </div>
 </div>
 <div class="col col-md-2">
 <div class="form-group">
         <label for="">English<small>(Marks Obtained)</small>:</label>
-        <input type="number" name="English" class="form-control" >
+        <input type="number" value="<?= $std['English'] ?>" name="English" class="form-control" >
         
     </div>
 </div>
@@ -99,7 +100,7 @@ if(isset($_GET['id'])){
 
 
 
-    <input type="submit" name="btn" value="Submit" class="btn btn-primary float-right" >
+    <input type="submit" name="btn" value="Save" class="btn btn-primary float-right" >
 
 
 </form>
@@ -112,3 +113,40 @@ if(isset($_GET['id'])){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
+<?php
+$fetch_record = $con->query("SELECT * FROM `record`");
+
+if(isset($_POST['btn'])){
+
+$name=$_POST['name'];
+$stdid=$_POST['stdid'];
+$id=$_POST['id'];
+
+$Math=$_POST['Math'];
+$Islamiat=$_POST['Islamiat'];
+$Physics=$_POST['Physics'];
+$Urdu=$_POST['Urdu'];
+$English=$_POST['English'];
+
+$sum = $Math+$Islamiat+$Physics+$Urdu+$English;
+
+$calculate = $sum / 500 * 100;
+
+$update = $con->query("UPDATE `record` SET `name`='$name',`stdid`='$stdid',`Math`='$Math',`Islamiat`='$Islamiat',`Physics`='$Physics',`Urdu`='$Urdu',`English`='$English',`ObtainedMarks`='$sum',`Percentage`='$calculate' WHERE `id`='$id'");
+
+if($update)
+{
+    ?>
+
+<script>
+window.location.href = 'index.php';
+</script>
+    <?php
+
+}
+
+}
+
+
+
+?>

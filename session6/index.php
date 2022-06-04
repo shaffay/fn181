@@ -145,6 +145,8 @@ $fetch_record = $con->query("SELECT * FROM `record`");
             <th>Total Marks</th>
             <th>Obtained Marks</th>
             <th>Percentage</th>
+            <th>Status</th>
+            <th>Grade</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -167,6 +169,78 @@ $fetch_record = $con->query("SELECT * FROM `record`");
             <td><?php echo $row['TotalMarks'] ?></td>
             <td><?php echo $row['ObtainedMarks'] ?></td>
             <td><?php echo $row['Percentage'] ?></td>
+        
+            <?php
+
+            if($row['Percentage'] >= 45 ){
+                ?>
+                            </td>
+            <td style="background-color:greenyellow;">
+            Pass
+            </td>
+                            <?php
+                        }else{
+                            ?>
+                            </td>
+            <td style="background-color:red;">
+            Failed
+            </td>
+                            <?php
+                        }
+
+
+            ?>
+
+
+         
+        
+
+            <?php
+
+                if($row['Percentage'] <= 45 ){
+                    ?>
+                            </td>
+            <td style="background-color:red;">
+          F
+            </td>
+                            <?php
+                }elseif($row['Percentage'] <= 60 ){
+                    ?>
+                    </td>
+    <td style="background-color:orange;">
+C
+    </td>
+                    <?php
+                }elseif($row['Percentage'] <= 70 ){
+                    ?>
+                    </td>
+    <td style="background-color:Blue;">
+B
+    </td>
+                    <?php
+                }
+                elseif($row['Percentage'] <= 80 ){
+                    ?>
+                    </td>
+    <td style="background-color:pink;">
+A
+    </td>
+                    <?php
+                }elseif($row['Percentage'] <= 100 ){
+                    ?>
+                    </td>
+    <td style="background-color:greenyellow;">
+A+
+    </td>
+                    <?php
+                }
+ 
+
+                ?>
+
+
+
+           
             <td>
 
             <a href="edit.php?id=<?php echo $row['id'] ?>" target="_blank" class="btn btn-primary" >Edit Record</a>
